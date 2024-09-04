@@ -1,0 +1,32 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@food-mine-fe/food-mine-admin": ["libs/food-mine-admin/src/index.ts"],
+      "@food-mine-fe/food-mine-admin-ds-core-ang": [
+        "libs/food-mine-admin-ds-core-ang/src/index.ts"
+      ],
+      "@food-mine-fe/food-mine-client": ["libs/food-mine-client/src/index.ts"],
+      "@food-mine-fe/food-mine-client-ds-core-ang": [
+        "libs/food-mine-client-ds-core-ang/src/index.ts"
+      ],
+      "@food-mine-fe/todo-list-ds-core-ang": [
+        "libs/todo-list-ds-core-ang/src/index.ts"
+      ]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
