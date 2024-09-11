@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TodoListDsCoreAngComponent } from './todo-list-ds-core-ang.component';
+import { TodoListDsCoreAngComponent } from './todo-list-view-ang.component';
 
 describe('TodoListDsCoreAngComponent', () => {
   let component: TodoListDsCoreAngComponent;

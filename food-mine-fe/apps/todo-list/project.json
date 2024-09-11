@@ -18,10 +18,24 @@
         "inlineStyleLanguage": "scss",
         "assets": [
           "apps/todo-list/src/favicon.ico",
-          "apps/todo-list/src/assets"
+          "apps/todo-list/src/assets",
+          {
+            "input": "node_modules/@yonkoulong/foodmine-themes/assets",
+            "glob": "**/*",
+            "output": "theme-assets"
+          }
         ],
-        "styles": ["apps/todo-list/src/styles.scss"],
-        "scripts": []
+        "styles": [
+          "apps/todo-list/src/styles.scss",
+          "node_modules/@yonkoulong/foodmine-themes/scss/main.scss",
+          "@angular/material/prebuilt-themes/deeppurple-amber.css"
+        ],
+        "scripts": [],
+        "stylePreprocessorOptions": {
+          "includePaths": [
+            "node_modules/@yonkoulong/foodmine-themes/scss"
+          ]
+        }
       },
       "configurations": {
         "production": {

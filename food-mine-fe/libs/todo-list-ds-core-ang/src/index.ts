@@ -1,1 +1,3 @@
-export * from './lib/todo-list-ds-core-ang/todo-list-ds-core-ang.component';
+export * from './lib/views/todo-list-view/todo-list-view-ang.component';
+export * from './lib/common/src/index';
+export * from './lib/todo-list-journey.module';

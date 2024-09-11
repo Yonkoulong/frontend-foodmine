@@ -1,0 +1,55 @@
+<div class="todo-container">
+   
+    <div class="todo-content">
+        <div class="todo-content-head">
+            <div class="box">
+                <h2 class="todo-head-text">Todo list</h2>
+                <div class="task-remaining">
+                    {{ taskRemaining.length }}
+                </div>
+                <div class="button-container">
+                    <button mat-mini-fab color="primary" aria-label="icon button with a add icon" (click)="openDialogCreateTask()">
+                      <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <div class="ipt-wrapper">
+                <mat-icon>search</mat-icon>
+                <input placeholder="Search" [(ngModel)]="inputText" type="text" (input)="onSearch()">
+            </div>
+        </div>
+        
+        <div class="todo-content-body">
+            <div #loading *ngIf="isLoading">loading....</div>
+            <ng-container *ngIf="!isLoading && tasks; else noData">
+                <!-- <app-task-item [taskList]="tasks"
+                    (handleDeleteTask)="openDialogConfirm($event)"
+                    (handleEditTask)="handleEditTask($event)"
+                    (handleUpdateStatusTask)="handleUpdateStatusTask($event)"
+                    ></app-task-item> -->
+            </ng-container>
+        </div>
+    </div>
+
+    <div class="todo-rightbar">
+        <div>
+            <app-category
+                (categoryChange)="handleFilterTaskByCategory($event)"
+            ></app-category>
+        </div>
+    </div>
+</div>
+
+
+
+<ng-template #noData >
+    <div class="no-data" *ngIf="!isLoading">
+        <div class="img-data-wrapper">
+            <img src="../../../../../assets/images/icon-not-found.png" alt="">
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #name>
+    <p>Loading...</p>
+</ng-template>
