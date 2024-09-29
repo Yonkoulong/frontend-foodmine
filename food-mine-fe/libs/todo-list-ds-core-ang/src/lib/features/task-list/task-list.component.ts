@@ -1,19 +1,26 @@
-import { Component, OnInit } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
+import { Component, computed, effect, OnInit, signal } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Task } from '@food-mine-fe/todo-list-ds-core-ang';
-import { debounceTime, Subject } from "rxjs";
-import { AddTaskComponent } from "../../shared/components/dialog/add-task/add-task.component";
-import { TYPE_OF_DIALOG } from "../../shared/constants/todo-list-constant";
+import { debounceTime, Subject } from 'rxjs';
+import { AddTaskComponent } from '../../shared/components/dialog/add-task/add-task.component';
+import { TYPE_OF_DIALOG } from '../../shared/constants/todo-list-constant';
+import { Store } from '@ngrx/store';
+import { selectTaskList } from '../../services/ds-task-store-ang/store/selectors';
+import * as TaskActions from '../../services/ds-task-store-ang/store/actions';
+import { TaskState } from '../../services/ds-task-store-ang/store/state';
 
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.scss'],
 })
-
 export class TaskListComponent implements OnInit {
+  // Signals for Task List and Pagination
+  tasks = signal<Task.TaskItem[]>([]);
+  tootalPages = signal<number>(0);
+
   taskValue: string = '';
-  tasks: Task.TaskList = {};
+  // tasks: Task.TaskList = {};
   taskEdit: Task.TaskItem | any = null;
   isOpenCreateCategoryPopup: boolean = false;
   currentCategoryId: string = 'as';
@@ -23,22 +30,45 @@ export class TaskListComponent implements OnInit {
   private searchTask = new Subject<string>();
   private readonly debounceTimeMs = 300;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private store: Store<TaskState>) {
+    // Effect to update signal whenever the task list in the store changes
+    effect(
+      () => {
+        this.store.select(selectTaskList).subscribe((taskList) => {
+          this.tasks.set(taskList.items || []);
+          this.tootalPages.set(taskList.totalPages || 0);
+        });
+      },
+      { allowSignalWrites: true }
+    );
+  }
 
   ngOnInit(): void {
-    this.handleFetchTasks(this.currentCategoryId || "as");
-
-    this.searchTask.pipe(debounceTime(this.debounceTimeMs)).subscribe((searchValue) => {        
-      this.performSearch(searchValue);
-    })
+    this.handleFetchTasks(this.currentCategoryId || 'as');
+    this.searchTask
+      .pipe(debounceTime(this.debounceTimeMs))
+      .subscribe((searchValue) => {
+        this.performSearch(searchValue);
+      });
   }
 
   ngOnDestroy(): void {
-    console.log("onDestroy");
+    console.log('onDestroy');
     this.searchTask.complete();
   }
 
-  handleDeleteTask(id: string) {        
+  loadTasks(from: number, size: number) {
+    this.store.dispatch(
+      TaskActions.loadTaskList({
+        filterParams: { from, size, keyword: this.inputText },
+      })
+    );
+  }
+
+  // Compute derived state (For example: tasks count)
+  totalTasks = computed(() => this.tasks().length);
+
+  handleDeleteTask(id: string) {
     // this.taskService.deleteTask(id).subscribe({
     //   next: () => this.handleFetchTasks(this.currentCategoryId || 0),
     //   error: (error) => console.log(`Error: ${error}`),
@@ -46,13 +76,15 @@ export class TaskListComponent implements OnInit {
     // });
   }
 
-  handleEditTask(task: Task.TaskItem) {    
+  handleEditTask(task: Task.TaskItem) {
     this.taskEdit = task;
-    this.handleFetchTasks(this.currentCategoryId || "as");
+    this.handleFetchTasks(this.currentCategoryId || 'as');
   }
 
   handleUpdateStatusTask(task: Task.TaskItem) {
-    if(!task) { return; }
+    if (!task) {
+      return;
+    }
     // this.taskService.editTask(task).subscribe({
     //   next: () => this.handleFetchTasks(this.currentCategoryId || 0),
     //   error: (error) => console.log(`Error: ${error}`),
@@ -68,20 +100,20 @@ export class TaskListComponent implements OnInit {
   handleFetchTasks(categoryId: string) {
     // this.taskService.getTasks(categoryId).subscribe({
     //   next: (tasks) => {
-    //     this.tasks = tasks;        
-    //     this.taskRemaining = tasks.filter((task) => !task.completed);        
+    //     this.tasks = tasks;
+    //     this.taskRemaining = tasks.filter((task) => !task.completed);
     //   },
     //   error: (error) => console.log(`Error: ${error}`),
     //   complete: () => console.info('')
     // })
   }
 
-  onSearch() {    
+  onSearch() {
     this.isLoading = true;
     this.searchTask.next(this.inputText);
   }
 
-  performSearch(value: string) {    
+  performSearch(value: string) {
     // if(value) {
     //   const listTaskSearched = this.tasks?.items || [].filter((task: Task.TaskItem) => task?.title.includes(value))
     //   this.tasks = listTaskSearched;
@@ -89,9 +121,9 @@ export class TaskListComponent implements OnInit {
     //   this.handleFetchTasks(this.currentCategoryId || "0");
     // }
 
-    this.isLoading = false
+    this.isLoading = false;
   }
-  
+
   openDialogCreateTask(): void {
     this.open(AddTaskComponent, {}, TYPE_OF_DIALOG.CREATE);
   }
@@ -108,13 +140,15 @@ export class TaskListComponent implements OnInit {
   open(com: any, data: any, purpose: string) {
     const dialogRef = this.dialog.open(com, { data });
 
-    dialogRef?.afterClosed().subscribe(result => {
-      if(result) {  
-        switch(purpose) {
+    dialogRef?.afterClosed().subscribe((result) => {
+      if (result) {
+        switch (
+          purpose
           // case TYPE_OF_DIALOG.CREATE: this.handleFetchTasks(this.currentCategoryId || 0);
           // break;
           // case TYPE_OF_DIALOG.DELETE: this.handleDeleteTask(data?.taskId);
           // break;
+        ) {
         }
       }
     });

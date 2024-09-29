@@ -23,8 +23,6 @@ import { AddTaskComponent } from "../../shared/components/dialog/add-task/add-ta
 import { AddCategoryComponent } from "../../shared/components/dialog/add-category/add-category.component";
 import { ToRequiredPipe } from "../../shared/pipes/toRequire.pipe";
 import { ExpiryDateTaskPipe } from "../../shared/pipes/expiryDateTask.pipe";
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from "@angular/platform-browser";
 
 
 const MaterialModule = [

@@ -1,10 +1,9 @@
 import { createFeatureSelector, createSelector, MemoizedSelector } from "@ngrx/store";
 import { TaskListActions, TaskState } from "./state";
 import { Task } from '@food-mine-fe/todo-list-ds-core-ang';
-
 const taskState = createFeatureSelector<TaskState>('todolist-task');
 
-export const taskList: MemoizedSelector<TaskListActions, Task.TaskList> = createSelector(
+export const selectTaskList: MemoizedSelector<TaskState, Task.TaskList> = createSelector(
     taskState,
     (state: TaskState) => state.entities[Task.Entities.TaskList],
 );

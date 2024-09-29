@@ -3,7 +3,7 @@ import { initialState, TaskState } from "./state";
 import * as taskActions from './actions';
 import { Task } from "@food-mine-fe/todo-list-ds-core-ang";
 
-const taskReducer = createReducer(
+export const taskReducer = createReducer(
     initialState,
     on(taskActions.loadTaskList, (state) => ({
         ...state,
