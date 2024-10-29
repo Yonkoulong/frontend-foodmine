@@ -1,0 +1,22 @@
+.fm-shared-link-primary {
+    background-image: url('../../assets/icons/share-link-primary.svg');
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+  
+    &::before {
+      content: '';
+    }
+}
+
+.fm-shared-link-primary-circle {
+    background-image: url('../../assets/icons/share-link-primary-circle.svg');
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+  
+    &::before {
+      content: '';
+    }
+}
+  

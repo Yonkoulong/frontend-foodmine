@@ -22,11 +22,11 @@
         <div class="todo-content-body">
             <div #loading *ngIf="isLoading">loading....</div>
             <ng-container *ngIf="!isLoading && tasks; else noData">
-                <!-- <app-task-item [taskList]="tasks"
+                <app-task-item [taskList]="tasks()"
                     (handleDeleteTask)="openDialogConfirm($event)"
                     (handleEditTask)="handleEditTask($event)"
                     (handleUpdateStatusTask)="handleUpdateStatusTask($event)"
-                    ></app-task-item> -->
+                    ></app-task-item>
             </ng-container>
         </div>
     </div>

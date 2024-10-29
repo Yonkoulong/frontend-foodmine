@@ -1,0 +1,10 @@
+.fm-wallet-primary {
+    background-image: url('../../assets/icons/wallet-primary.svg');
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+  
+    &::before {
+      content: '';
+    }
+}

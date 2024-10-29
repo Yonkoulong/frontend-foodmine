@@ -1,0 +1,32 @@
+.fm-menu-grey {
+  background-image: url('../../assets/icons/menu-grey.svg');
+  display: inline-block;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  &::before {
+    content: '';
+  }
+}
+
+.fm-menu-primary {
+  background-image: url('../../assets/icons/menu-primary.svg');
+  display: inline-block;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  &::before {
+    content: '';
+  }
+}
+
+.fm-menu-white {
+  background-image: url('../../assets/icons/menu-white.svg');
+  display: inline-block;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  &::before {
+    content: '';
+  }
+}

@@ -1,0 +1,27 @@
+.banner-container {
+    padding: 16px;
+    
+    .banner-wrapper {
+        .banner {
+            min-width: 304px;
+            height: 144px;
+            border-radius: 20px;
+        }
+
+        .banner-1 {
+            background-image: linear-gradient(to right, #FDDEA7 0%, #FAB53C 100%);
+            
+        }
+
+        .banner-2 {
+            background-image: linear-gradient(to right, #FF826C 0%, #000000 100%);
+            
+        }
+
+        .banner-3 {
+            background-image: linear-gradient(45deg, #13C296 0%, #095C47 100%);
+            
+        }
+    }
+
+}

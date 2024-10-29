@@ -95,17 +95,17 @@ export const taskReducer = createReducer(
             }
         }
     })),
-    on(taskActions.resetEntityState, (state, { entity }) => ({
-        ...state,
-        entities: {
-            ...state.entities,
-            [entity]: initialState.entities[entity],
-        },
-        actions: {
-            ...state.actions,
-            [entity]: initialState.actions[entity]
-        }
-    }))
+    // on(taskActions.resetEntityState, (state, { entity }) => ({
+    //     ...state,
+    //     entities: {
+    //         ...state.entities,
+    //         [entity]: initialState.entities[entity],
+    //     },
+    //     actions: {
+    //         ...state.actions,
+    //         [entity]: initialState.actions[entity]
+    //     }
+    // }))
 );
 
 export function reducer(state: TaskState = initialState, action: Action): TaskState {

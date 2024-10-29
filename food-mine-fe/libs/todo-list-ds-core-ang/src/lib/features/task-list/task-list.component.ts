@@ -1,6 +1,6 @@
 import { Component, computed, effect, OnInit, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Task } from '@food-mine-fe/todo-list-ds-core-ang';
+import { FirebaseTaskService, Task, TaskDataService } from '@food-mine-fe/todo-list-ds-core-ang';
 import { debounceTime, Subject } from 'rxjs';
 import { AddTaskComponent } from '../../shared/components/dialog/add-task/add-task.component';
 import { TYPE_OF_DIALOG } from '../../shared/constants/todo-list-constant';
@@ -27,42 +27,33 @@ export class TaskListComponent implements OnInit {
   taskRemaining: Task.TaskItem[] = [];
   inputText: string = '';
   isLoading: boolean = false;
+  fromPage: number = 1;
+  size = 10;
   private searchTask = new Subject<string>();
   private readonly debounceTimeMs = 300;
 
-  constructor(public dialog: MatDialog, private store: Store<TaskState>) {
+  constructor(public dialog: MatDialog, private taskDataService: TaskDataService) {
     // Effect to update signal whenever the task list in the store changes
     effect(
       () => {
-        this.store.select(selectTaskList).subscribe((taskList) => {
-          this.tasks.set(taskList.items || []);
-          this.tootalPages.set(taskList.totalPages || 0);
-        });
+        this.taskDataService.taskList$.subscribe((taskList) => {
+          console.log(taskList);
+          
+          this.tasks.set(taskList?.items || []);
+          this.tootalPages.set(taskList?.totalPages || 0);
+        })
       },
       { allowSignalWrites: true }
     );
   }
 
   ngOnInit(): void {
-    this.handleFetchTasks(this.currentCategoryId || 'as');
-    this.searchTask
-      .pipe(debounceTime(this.debounceTimeMs))
-      .subscribe((searchValue) => {
-        this.performSearch(searchValue);
-      });
+    this.handleFetchTasks();
   }
 
   ngOnDestroy(): void {
     console.log('onDestroy');
     this.searchTask.complete();
-  }
-
-  loadTasks(from: number, size: number) {
-    this.store.dispatch(
-      TaskActions.loadTaskList({
-        filterParams: { from, size, keyword: this.inputText },
-      })
-    );
   }
 
   // Compute derived state (For example: tasks count)
@@ -78,7 +69,7 @@ export class TaskListComponent implements OnInit {
 
   handleEditTask(task: Task.TaskItem) {
     this.taskEdit = task;
-    this.handleFetchTasks(this.currentCategoryId || 'as');
+    this.handleFetchTasks();
   }
 
   handleUpdateStatusTask(task: Task.TaskItem) {
@@ -97,15 +88,12 @@ export class TaskListComponent implements OnInit {
     // this.handleFetchTasks(category?.id);
   }
 
-  handleFetchTasks(categoryId: string) {
-    // this.taskService.getTasks(categoryId).subscribe({
-    //   next: (tasks) => {
-    //     this.tasks = tasks;
-    //     this.taskRemaining = tasks.filter((task) => !task.completed);
-    //   },
-    //   error: (error) => console.log(`Error: ${error}`),
-    //   complete: () => console.info('')
-    // })
+  handleFetchTasks() {
+    this.taskDataService.loadTaskList({ filterParams: {
+      keyword: this.inputText,
+      from: this.fromPage,
+      size: this.size
+    }});
   }
 
   onSearch() {

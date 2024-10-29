@@ -27,16 +27,21 @@
             "input": "node_modules/@yonkoulong/foodmine-themes/assets",
             "glob": "**/*",
             "output": "theme-assets"
+          },
+          {
+            "input": "themes/assets",
+            "glob": "**/*",
+            "output": "themes/assets"
           }
         ],
         "styles": [
           "apps/food-mine-manager/src/styles.scss",
-          "node_modules/@yonkoulong/foodmine-themes/scss/main.scss"
+          "themes/scss/main.scss"
         ],
         "scripts": [],
         "stylePreprocessorOptions": {
           "includePaths": [
-            "node_modules/@yonkoulong/foodmine-themes/scss"
+            "themes/scss"
           ]
         }
       },

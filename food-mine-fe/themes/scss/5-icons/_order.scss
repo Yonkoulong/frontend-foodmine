@@ -1,0 +1,22 @@
+.fm-order-grey {
+    background-image: url('../../assets/icons/order-grey.svg');
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+  
+    &::before {
+      content: '';
+    }
+}
+
+.fm-order-white {
+  background-image: url('../../assets/icons/order-white.svg');
+  display: inline-block;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  &::before {
+    content: '';
+  }
+}
+  

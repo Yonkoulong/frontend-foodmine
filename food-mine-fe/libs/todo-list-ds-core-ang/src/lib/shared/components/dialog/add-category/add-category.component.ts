@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Task } from '@food-mine-fe/todo-list-ds-core-ang';
+import { FirebaseTaskService, Task } from '@food-mine-fe/todo-list-ds-core-ang';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 // import { CategoryService } from 'src/app/services/category/category.service';
@@ -21,7 +21,7 @@ export class AddCategoryComponent {
     public dialogRef: MatDialogRef<AddCategoryComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Task.Category,
     private formBuilder: FormBuilder,
-    // private categoryService: CategoryService
+    private firebaseTaskService: FirebaseTaskService
   ) {
     // dialogRef.disableClose = true;
   }
@@ -42,11 +42,11 @@ export class AddCategoryComponent {
         //   complete: () => console.info('complete')
         // });
       } else { //Add
-        // this.categoryService.addCategory(this.categoryForm.value).subscribe({
-        //   next: () => this.dialogRef.close(this.categoryForm),
-        //   error: (error) => console.log(`Error: ${error}`),
-        //   complete: () => console.info('complete')
-        // });
+        this.firebaseTaskService.createCategory(this.categoryForm.value).subscribe({
+          next: () => this.dialogRef.close(this.categoryForm),
+          error: (error) => console.log(`Error: ${error}`),
+          complete: () => console.info('complete')
+        });
       }
     } else {
       this.categoryForm.markAllAsTouched();
@@ -56,6 +56,7 @@ export class AddCategoryComponent {
   get formState(): any {
     return this.categoryForm.controls;
   }
+
   onNoClick(): void {
     this.dialogRef.close();
   }

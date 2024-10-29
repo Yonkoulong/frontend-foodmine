@@ -1,1 +1,2 @@
-export * from './lib/food-mine-client/food-mine-client.component';
+export * from './lib/shell/src/';
+export * from './lib/feature/src';

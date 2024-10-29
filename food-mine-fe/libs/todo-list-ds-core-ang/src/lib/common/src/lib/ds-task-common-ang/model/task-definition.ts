@@ -1,6 +1,7 @@
 export namespace Task {
     export enum Entities {
-        TaskList = 'taskList'
+        TaskList = 'taskList',
+        TaskCategory = 'taskCategory'
     }
 
     export type TaskList = {
@@ -26,7 +27,7 @@ export namespace Task {
     };
 
     export type Category = {
-        id?: string,
+        id: string,
         name?: string
     }
 

@@ -16,13 +16,26 @@
     "baseUrl": ".",
     "paths": {
       "@food-mine-fe/food-mine-admin": ["libs/food-mine-admin/src/index.ts"],
-      "@food-mine-fe/food-mine-admin-ds-core-ang": [
-        "libs/food-mine-admin-ds-core-ang/src/index.ts"
-      ],
       "@food-mine-fe/food-mine-client": ["libs/food-mine-client/src/index.ts"],
-      "@food-mine-fe/food-mine-client-ds-core-ang": [
-        "libs/food-mine-client-ds-core-ang/src/index.ts"
+      "@food-mine-fe/food-mine-client/data-access": [
+        "libs/food-mine-client/data-access/src/index.ts"
       ],
+      "@food-mine-fe/food-mine-client/feature": [
+        "libs/food-mine-client/src/lib/feature/src/index.ts"
+      ],
+      "@food-mine-fe/food-mine-client/shared": [
+        "libs/food-mine-client/src/lib/shared/src/index.ts"
+      ],
+      "@food-mine-fe/food-mine-client/shell": [
+        "libs/food-mine-client/src/lib/shell/src/index.ts"
+      ],
+      "@food-mine-fe/food-mine-client/ui": [
+        "libs/food-mine-client/src/lib/ui/src/index.ts"
+      ],
+      "@food-mine-fe/food-mine-client/util": [
+        "libs/food-mine-client/src/lib/util/src/index.ts"
+      ],
+      "@food-mine-fe/shared": ["libs/shared/src/index.ts"],
       "@food-mine-fe/todo-list-ds-core-ang": [
         "libs/todo-list-ds-core-ang/src/index.ts"
       ]

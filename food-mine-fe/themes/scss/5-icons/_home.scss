@@ -1,0 +1,21 @@
+.fm-home-grey {
+  background-image: url('../../assets/icons/home-grey.svg');
+  display: inline-block;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  &::before {
+    content: '';
+  }
+}
+
+.fm-home-white {
+  background-image: url('../../assets/icons/home-white.svg');
+  display: inline-block;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  &::before {
+    content: '';
+  }
+}

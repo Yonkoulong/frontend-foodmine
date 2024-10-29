@@ -1,0 +1,21 @@
+.fm-bell-grey {
+  background-image: url('../../assets/icons/bell-grey.svg');
+  display: inline-block;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  &::before {
+    content: '';
+  }
+}
+
+.fm-bell-primary {
+  background-image: url('../../assets/icons/bell-primary.svg');
+  display: inline-block;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  &::before {
+    content: '';
+  }
+}
